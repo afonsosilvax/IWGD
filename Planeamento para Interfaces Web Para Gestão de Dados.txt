@@ -1,0 +1,16 @@
+Interfaces Web Para Gestão de Dados
+Ideias de projeto:
+
+Site de compra e venda de cartas de jogos;
+
+Opcao para quando o utilizador publica a carta disponibilizar uma imagem e, posteriormente, meter os atributos da carta;
+
+Na pagina principal: pesquisar/comprar cartas, vender cartas, trocar cartas (diponibilizar e procurar);
+
+Na troca de cartas, quando  um utiizador quiser uma carta de troca, manda um request a quem disponibilizou, e caso o outro utillizador aceite, as suas informações de contacto ficarão disponiveis;
+
+Adicionar ratings a cada utilizador que venda ou troca de cartas de utilizadores que interagiram com eles, e as respetivas opiniões;
+
+Extra: tentar fazer um sistema de chat entre utilizadores para negociarem; Criar um forum onde se publica torneios; 
+
+Cada carta teria estatisticas (atualidade, raridade, coleção, etc);
