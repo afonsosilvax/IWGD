@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+{% if request.user %}
+    <p>Bem vindo</p>
+    {{request.user.username}}
+{%endif%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +12,19 @@
 
     {% load static %}
     <img src="{% static 'pokecom/images/International_Pokémon_logo.svg.png' %}" width="60%" height="30%" >
+<p></p>
+<a href="{% url 'pokecom:pesquisar' %}">Pesquisar carta</a>
+<p></p>
+<a href="{% url 'pokecom:vender' %}">Vender carta</a>
+<p></p>
+<a href="{% url 'pokecom:trocar' %}">Trocar carta</a>
+<p></p>
+<a href="{% url 'pokecom:login' %}">Faz Login</a>
+<p></p>
+<a href="{% url 'pokecom:criaruser' %}">Cria um user</a>
+<p></p>
+<a href="{% url 'pokecom:logout' %}">Logout</a>
+
 
 </body>
 </html>
