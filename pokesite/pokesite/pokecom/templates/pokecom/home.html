@@ -1,0 +1,44 @@
+{% extends "pokecom/index.html" %}
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+
+{% block auth %}
+    <nav class="navbar navbar-expand-sm navbar-transparent bg-transparent">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'pokecom/images/Custom-Icon-Design-Pretty-Office-8-User-blue.256.png' %}" alt="user_icon"
+                     width="50" height="50" class="rounded-pill">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto" id="centrar">
+                    <li class="nav-item">
+                        <a class="nav-link">Buy</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link">Sell</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link">Trade</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <p>Utilizador</p>
+
+    <a href="{% url 'pokecom:logout' %}">Logout</a>
+
+{% endblock %}

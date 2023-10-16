@@ -1,0 +1,20 @@
+h1 {
+    font-size: 50px;
+    margin-left: 95px;
+}
+
+body {
+    background-image: url("././images/f99ldyhh.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+#opacidade:hover {
+    opacity: 0.5;
+}
+
+#centrar {
+    margin-left: 80px;
+}
+

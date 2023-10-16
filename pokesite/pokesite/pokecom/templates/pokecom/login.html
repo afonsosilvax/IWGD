@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokecom login</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% load static %}
+
+    <!--https://www.iconarchive.com/show/cold-fusion-hd-icons-by-chrisbanks2/pokemon-icon.html-->
+    <link rel="icon" type="image/x-icon"
+          href="{% static 'pokecom/images/Chrisbanks2-Cold-Fusion-Hd-Pokemon.ico' %}"
+          alt = "icone" />
+
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="p-3 mb-2 bg-primary text-white"><h1>Login</h1></div>
+        <form action="/home" method="post">
+            {% csrf_token %}
+            <div class="mb-3 mt-3">
+                <label for="id_username">Username:</label>
+                <input type="text" class="form-control" id="id_username" placeholder="Enter username" name="username">
+            </div>
+
+            <div class="mb-3">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <img src="{% static 'pokecom/images/Hektakun-Pokemon-169-Crobat.48.png' %}" alt="login_icon"
+         style="margin-left: 140px; margin-top: 10px">
+
+</body>
+</html>
