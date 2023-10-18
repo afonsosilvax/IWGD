@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Pokecom Venda</title>
 </head>
 <body>
+    {% load static %}
+    <form method="post" enctype="multipart/form-data" action="{% url 'pokecom:fazer_upload' %}">
+        {% csrf_token %}
+        Imagem da carta: <input type="file" name="myfile">
+        <input type="submit" value="upload">
+        Nome do pokemon: <input type="text" name="nome_pokemon">
+        Raridade: <input type="text" name="raridade">
+        Coleção: <input type="text" name="colecao">
+        Preço <input type="number" name="preco">
+        <input type="submit" name="Submeter">
+    </form>
+
+    {% if uploaded_file_url %}
+    <p>Upload concluido com sucesso</p>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'pokecom:home' %}"> Voltar à página inicial</a>
+    </p>
+
 
 </body>
 </html>

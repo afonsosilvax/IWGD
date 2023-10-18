@@ -18,6 +18,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <a href="{% url 'pokecom:logout' %}" class="btn btn-primary btn-sm">Logout</a>
+
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto" id="centrar">
                     <li class="nav-item">
@@ -25,7 +27,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link">Sell</a>
+                        <a class="nav-link" href="{% url 'pokecom:fazer_upload' %}">Sell</a>
                     </li>
 
                     <li class="nav-item">
@@ -37,8 +39,8 @@
         </div>
     </nav>
 
-    <p>Utilizador</p>
-
-    <a href="{% url 'pokecom:logout' %}">Logout</a>
+    {% if request.user %}
+        <p class="ms-3">{{request.user.username}}</p>
+    {% endif %}
 
 {% endblock %}

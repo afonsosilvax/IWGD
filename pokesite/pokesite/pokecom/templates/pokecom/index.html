@@ -22,12 +22,10 @@
     {% block auth %}
         <div class="container mt-3">
             <div class="btn-group">
-                <button type="button" class="btn btn-outline-primary btn-lg">
-                    <a href="{% url 'pokecom:register' %}">Register</a>
-                </button>
-                <button type="button" class="btn btn-primary btn-lg">
-                    <a href="{% url 'pokecom:login' %}">Login</a>
-                </button>
+                <a href="{% url 'pokecom:register' %}"
+                   class="btn btn-outline-primary btn-lg">Register</a>
+                <a href="{% url 'pokecom:login' %}"
+                   class="btn btn-primary btn-lg">Login</a>
             </div>
         </div>
 
