@@ -6,6 +6,7 @@ app_name = "pokecom"
 urlpatterns = [
     path('', views.index, name='index'),
     path('register', views.register, name='register'),
+    path('register_comp', views.register_comp, name='register_comp'),
     path('login', views.loginview, name='login'),
     path('home', views.home, name='home'),
     path('logout', views.fazlogout, name='logout'),

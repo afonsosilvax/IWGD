@@ -7,7 +7,7 @@ import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from .models import Carta
+from .models import Carta, Organizador, Torneio
 
 # Create your views here.
 
@@ -17,7 +17,6 @@ def index(request):
 def loginview(request):
     if request.method == 'POST':
         user = authenticate(request, username= request.POST.get('username'), password=request.POST.get('pswd'))
-        print(user)
         if user is not None:
             login(request, user)
             return redirect('/home')
@@ -27,10 +26,21 @@ def loginview(request):
 
 def register(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username = request.POST.get('username'),email = request.POST.get('email'),password = request.POST.get('password') )
+        user = User.objects.create_user(username = request.POST.get('username'),email = request.POST.get('email'),password = request.POST.get('pswd'))
         user.save()
         return redirect('/')
-    return render(request, 'pokecom/register.html',)
+    return render(request, 'pokecom/register.html')
+
+def register_comp(request):
+    if request.method == 'POST':
+        user = User.objects.create_user(username = request.POST.get('username'),email = request.POST.get('email'),password = request.POST.get('pswd'))
+        user.save()
+
+        comp = Organizador(user=user, nome_org=request.POST.get('emp'))
+        comp.save()
+
+        return redirect('/')
+    return render(request, 'pokecom/register_comp.html')
 
 def home(request):
     return render(request, 'pokecom/home.html')

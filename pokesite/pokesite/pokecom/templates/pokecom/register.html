@@ -35,8 +35,17 @@
                 <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
             </div>
 
+            {% block comp_reg %}
+            {% endblock%}
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
+        {% block comp %}
+            <p></p>
+            <a href="{% url 'pokecom:register_comp' %}">Are you a company?</a>
+        {% endblock %}
     </div>
+
 </body>
 </html>

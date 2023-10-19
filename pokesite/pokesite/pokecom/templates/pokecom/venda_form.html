@@ -2,29 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pokecom Venda</title>
+    <title>Pokecom Sell form</title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'pokecom/style1.css' %}" />
+
+    <link rel="icon" type="image/x-icon"
+      href="{% static 'pokecom/images/Chrisbanks2-Cold-Fusion-Hd-Pokemon.ico' %}"
+      alt = "icone" />
 </head>
 <body>
-    {% load static %}
-    <form method="post" enctype="multipart/form-data" action="{% url 'pokecom:fazer_upload' %}">
-        {% csrf_token %}
-        Imagem da carta: <input type="file" name="myfile">
-        <input type="submit" value="upload">
-        Nome do pokemon: <input type="text" name="nome_pokemon">
-        Raridade: <input type="text" name="raridade">
-        Coleção: <input type="text" name="colecao">
-        Preço <input type="number" name="preco">
-        <input type="submit" name="Submeter">
-    </form>
+    <div class="container mt-3">
+        <div class="py-5 text-center">
+            <h1>Sell form</h1>
+        </div>
 
-    {% if uploaded_file_url %}
-    <p>Upload concluido com sucesso</p>
-    {% endif %}
+        <form method="post" enctype="multipart/form-data" action="{% url 'pokecom:fazer_upload' %}">
+            {% csrf_token %}
+            <div class="row g-6">
+                <div class="col-sm-6">
+                    <label for="nome" class="form-label">Pokémon</label>
+                    <input id="nome" type="text" class="form-control" placeholder="what is your pokémon?"
+                           name="nome_pokemon" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
 
-    <p>
-        <a href="{% url 'pokecom:home' %}"> Voltar à página inicial</a>
-    </p>
+                <div class="col-sm-6">
+                    <label for="raridade_pokemon" class="form-label">Rarity</label>
+                    <input id="raridade_pokemon" type="text" class="form-control" placeholder="pokémon rarity"
+                           name="raridade" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
 
+                <div class="col-sm-6">
+                    <label for="colecao_pokemon" class="form-label">Collection</label>
+                    <input id="colecao_pokemon" type="text" class="form-control" placeholder="what is the collection of your pokémon?"
+                           name="colecao" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
 
+                <div class="col-sm-6">
+                    <label for="preco_pokemon" class="form-label">Price</label>
+                    <input id="preco_pokemon" type="number" class="form-control" placeholder="price of the card"
+                           name="preco" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="py-4">
+                    <div class="col-sm-12">
+                        <label for="imagem" class="form-label">Photo of the card</label>
+                        <input id="imagem" type="file" class="form-control" name="myfile" placeholder="Submit your image" required>
+                        {% if uploaded_file_url %}
+                            <p>Upload was successfull</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" name=Submeter">Submit</button>
+        </form>
+
+        <div class="py-5 text-center">
+            <a href="{% url 'pokecom:home' %}"> Voltar à página inicial</a>
+        </div>
+    </div>
 </body>
 </html>

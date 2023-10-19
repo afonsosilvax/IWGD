@@ -1,0 +1,20 @@
+{% extends "pokecom/register.html" %}
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+
+{% block comp_reg %}
+  <div class="mb-3">
+    <label for="nome_emp" class="form-label">Company name:</label>
+    <input type="text" class="form-control" id="nome_emp" placeholder="Enter company name" name="emp">
+  </div>
+{% endblock %}
+
+{% block comp %}
+  <p></p>
+  <a href="{% url 'pokecom:register' %}">Are you a user?</a>
+{% endblock %}
+
