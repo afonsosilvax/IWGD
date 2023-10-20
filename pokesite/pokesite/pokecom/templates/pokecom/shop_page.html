@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Cards</title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load static %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" action="{% url 'pokecom:pesquisar' %}">
+        <h1>Filtering</h1>
+        <div>
+            <label for="filter">Filter:</label>
+            <select id="filter">
+                <option value="all">All</option>
+                <optgroup label="Pokémon">
+                    <option value="pokemon">Pokémon 1</option>
+                    <option value="pokemon">Pokémon 2</option>
+                </optgroup>
+                <optgroup label="Rarity"></optgroup>
+                <optgroup label="Collection"></optgroup>
+                <optgroup label="Price">
+                    <li>
+                        <div>
+                            <label for="priceRange">Price Range:</label>
+                            <input type="text" id="priceRange" readonly>
+                        </div>
+                        <div id="priceSlider">
+                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                                <script>
+                                    $(function() {
+                                        $("#priceSlider").slider({
+                                            range: true,
+                                            min: 0,
+                                            max: 100,
+                                            values: [0, 100],
+                                            slide: function(event, ui) {
+                                                $("#priceRange").val(ui.values[0] + " - " + ui.values[1]);
+                                            }
+                                        });
+                                        $("#priceRange").val($("#priceSlider").slider("values", 0) +
+                                            " - " + $("#priceSlider").slider("values", 1));
+                                    });
+                                </script>
+                        </div>
+                    </li>
+                </optgroup>
+            </select>
+        </div>
+        <ul id="items">
+            {% for item in items %}
+                <li class="{{ item.category }}">{{ item.name }} ({{ item.category }})</li>
+            {% endfor %}
+        </ul>
+    </form>
+</body>
+</html>
