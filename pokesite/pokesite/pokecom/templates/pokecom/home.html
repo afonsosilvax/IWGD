@@ -68,11 +68,16 @@
                             <li><a href="#" class="dropdown-item">Trade Cards</a></li>
                         </ul>
                     </li>
-                     <li class="nav-item active">
-                        <a href="#" class="nav-link" style = "font-size:20px; color: #000000;" >
-                            Fórum </a>
-                     </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link" style="font-size: 20px; color: #000000;"
+                           id="navbarDropdown4" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">Tournaments</a>
 
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a href="{% url 'pokecom:criar_torneios' %}" class="dropdown-item">Create Tournament</a></li>
+                            <li><a href="{% url 'pokecom:torneios' %}" class="dropdown-item">Search Tournament</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

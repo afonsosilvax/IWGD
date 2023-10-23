@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8de1a9cd-194a-4acc-8b13-17a01d613796" name="Changes" comment="" />
+    <list default="true" id="8de1a9cd-194a-4acc-8b13-17a01d613796" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokecom/pokemon_tcg_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokecom/templates/pokecom/criar_torneios.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pokecom/templates/pokecom/torneios.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokecom/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokecom/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokecom/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokecom/templates/pokecom/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/pokecom/templates/pokecom/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokecom/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokecom/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pokecom/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokecom/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectId" id="2Wu3HMl8TOrFEd6llxjWLKz3U3m" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="pokesite" type="Python.DjangoServer" factoryName="Django server">
       <module name="pokesite" />
@@ -54,6 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1697568549598</updated>
       <workItem from="1697568551965" duration="80000" />
+      <workItem from="1698095405444" duration="15000" />
     </task>
     <servers />
   </component>

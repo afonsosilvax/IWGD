@@ -16,7 +16,12 @@ class Organizador(models.Model):
     nome_org = models.CharField(max_length=200)
 
 class Torneio(models.Model):
-    nome_organizador = models.ForeignKey(Organizador, on_delete=models.RESTRICT)
+    nome_torneio = models.CharField(max_length=200)
+    pais = models.CharField(max_length=200)
+    loja = models.CharField(max_length=200)
+    nome_organizador = models.CharField(max_length=200)
     data = models.DateTimeField()
-    premio = models.DecimalField(default="0.0", max_digits=7, decimal_places=2)
+    premio = models.IntegerField(default="0")
+    part = models.CharField(max_length=1000000)
     num_part = models.PositiveIntegerField(default="0")
+    id = models.BigAutoField(primary_key=True)

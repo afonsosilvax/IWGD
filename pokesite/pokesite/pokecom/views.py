@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from .models import Carta, Organizador, Torneio
+from django.urls import reverse
 
 # Create your views here.
 
@@ -66,6 +67,44 @@ def fazer_upload(request):
 
         return render(request, 'pokecom/venda_form.html', {'uploaded_file_url': uploaded_file_url})
     return render(request, 'pokecom/venda_form.html')
+
+def criar_torneios(request):
+    try:
+        organizador = Organizador.objects.get(user=request.user)
+        if request.method == 'POST':
+            nome_torneio = request.POST.get('nome')
+            pais = request.POST.get('pais')
+            loja = request.POST.get('loja')
+            nome_organizador = organizador.nome_org
+            data = request.POST.get('data')
+            premio = request.POST.get('premio')
+
+            t = Torneio(nome_torneio = nome_torneio, pais = pais, loja = loja, nome_organizador = nome_organizador,
+                data = data, premio = premio)
+            t.save()
+
+            return render(request, 'pokecom/criar_torneios.html')
+        return render(request, 'pokecom/criar_torneios.html')
+
+    except Organizador.DoesNotExist:
+        return HttpResponse("You need a special permition to create tournaments")
+
+def torneios(request):
+    torneios = Torneio.objects.all()
+    p = request.user.username
+
+    if request.method == 'POST':
+        torneio_ids = request.POST.get('torneio')
+        torneio_sel = Torneio.objects.get(id=torneio_ids)
+        if p not in torneio_sel.part.split(','):
+            torneio_sel.num_part += 1
+            torneio_sel.part += str(p) + str(',')
+            torneio_sel.save()
+            return redirect('/home')
+        return HttpResponse('Já se inscreveu neste torneio')
+
+    return render(request, 'pokecom/torneios.html', {"torneios":torneios})
+
 
 
 

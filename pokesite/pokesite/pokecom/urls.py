@@ -11,6 +11,8 @@ urlpatterns = [
     path('home', views.home, name='home'),
     path('logout', views.fazlogout, name='logout'),
     path('fazer_upload', views.fazer_upload, name='fazer_upload'),
+    path('criar_torneios', views.criar_torneios, name='criar_torneios'),
+    path('torneios', views.torneios, name='torneios'),
 
     path('pesquisar', views.pesquisar, name='pesquisar'),
     path('vender', views.vender, name='vender'),

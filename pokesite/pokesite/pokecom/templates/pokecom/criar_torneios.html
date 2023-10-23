@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokecom torneios</title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% load static %}
+
+    <link rel="icon" type="image/x-icon"
+      href="{% static 'pokecom/images/Chrisbanks2-Cold-Fusion-Hd-Pokemon.ico' %}"
+      alt = "icone" />
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="py-5 text-center">
+            <h1>Sell form</h1>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="row g-6">
+                <div class="col-sm-6">
+                    <label for="nome_torneio" class="form-label">Tournament name</label>
+                    <input id="nome_torneio" type="text" class="form-control" placeholder="what is the name of the tournament?"
+                           name="nome" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="pais_torneio" class="form-label">Country</label>
+                    <input id="pais_torneio" type="text" class="form-control" placeholder="Tournament country"
+                           name="pais" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="loja_torneio" class="form-label">Store</label>
+                    <input id="loja_torneio" type="text" class="form-control" placeholder="which store?"
+                           name="loja" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="data_torneio" class="form-label">Date and time</label>
+                    <input id="data_torneio" type="datetime-local" class="form-control" placeholder="starting date and time for this tournament"
+                           name="data" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="premio_torneio" class="form-label">Prize pool</label>
+                    <input id="premio_torneio" type="number" class="form-control" placeholder="Total prize of the tournament"
+                           name="premio" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" name=Submeter">Submit</button>
+        </form>
+
+        <div class="py-5 text-center">
+            <a href="{% url 'pokecom:home' %}"> Voltar à página inicial</a>
+        </div>
+    </div>
+</body>
+</html>
