@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% block title %}
     <title>Pokecom Sell form</title>
+    {% endblock %}
 
     {% load bootstrap5 %}
     {% bootstrap_css %}
@@ -19,10 +21,12 @@
 <body>
     <div class="container mt-3">
         <div class="py-5 text-center">
+            {% block nome %}
             <h1>Sell form</h1>
+            {% endblock %}
         </div>
 
-        <form method="post" enctype="multipart/form-data" action="{% url 'pokecom:fazer_upload' %}">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row g-6">
                 <div class="col-sm-6">
@@ -47,12 +51,20 @@
                 </div>
 
                 <div class="col-sm-6">
+                    <label for="estado_pokemon" class="form-label">Condicion</label>
+                    <input id="estado_pokemon" type="text" class="form-control" placeholder="what is the condicion of the card?"
+                           name="estado" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
                     <label for="preco_pokemon" class="form-label">Price</label>
                     <input id="preco_pokemon" type="number" class="form-control" placeholder="price of the card"
                            name="preco" required>
                     <div class="invalid-feedback">Invalid field</div>
                 </div>
 
+                {% block form %}
                 <div class="py-4">
                     <div class="col-sm-12">
                         <label for="imagem" class="form-label">Photo of the card</label>
@@ -62,8 +74,8 @@
                         {% endif %}
                     </div>
                 </div>
+                {% endblock %}
             </div>
-
             <button type="submit" class="btn btn-primary" name=Submeter">Submit</button>
         </form>
 

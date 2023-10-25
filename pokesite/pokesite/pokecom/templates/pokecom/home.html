@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto" id="centrar">
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" style="font-size: 20px; color: #000000;"
+                        <a class="nav-link dropdown-toggle" style="font-size: 20px; color: #000000;"
                         id="navbarDropdown"
                         role="button"
                         data-bs-toggle="dropdown"
@@ -36,7 +36,7 @@
                             Buy
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a href="#" class="dropdown-item">Buy Cards</a></li>
+                            <li><a href="{% url 'pokecom:procurar' %}" class="dropdown-item">Buy Cards</a></li>
                             <!-- Add more categories if wanted -->
                         </ul>
                     </li>
@@ -51,17 +51,13 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                             <li><a href="{% url 'pokecom:fazer_upload' %}" class="dropdown-item">Sell Cards</a></li>
-                            <li><a href="#" class="dropdown-item">Trade Cards</a></li>
-                            <!-- Add more categories if wanted -->
+                            <li><a href="{% url 'pokecom:troca_form' %}" class="dropdown-item">Trade Cards</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" style="font-size: 20px; color: #000000;"
-                         id="navbarDropdown3"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                           id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Trade
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">

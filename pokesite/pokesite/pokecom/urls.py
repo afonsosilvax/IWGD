@@ -11,12 +11,13 @@ urlpatterns = [
     path('home', views.home, name='home'),
     path('logout', views.fazlogout, name='logout'),
     path('fazer_upload', views.fazer_upload, name='fazer_upload'),
+    path('troca_form', views.troca_form, name='troca_form'),
     path('criar_torneios', views.criar_torneios, name='criar_torneios'),
     path('torneios', views.torneios, name='torneios'),
+    path('procurar', views.procurar, name='procurar'),
+    path('conf_compra', views.conf_compra, name='conf_compra'),
 
-    path('pesquisar', views.pesquisar, name='pesquisar'),
-    path('vender', views.vender, name='vender'),
-    path('trocar', views.trocar, name='trocar'),
+
     path('dispcarta', views.dispcarta, name='dispcarta'),
     path('pesuisar_troca', views.pesquisar_troca, name='pesquisar_troca'),
     ]

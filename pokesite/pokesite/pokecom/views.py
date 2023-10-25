@@ -1,5 +1,3 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import Http404, HttpResponse,HttpResponseRedirect
@@ -7,8 +5,9 @@ import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from .models import Carta, Organizador, Torneio
-from django.urls import reverse
+from .models import Carta, Organizador, Torneio, Carta_troca
+import pokemontcgsdk
+
 
 # Create your views here.
 
@@ -55,19 +54,40 @@ def fazer_upload(request):
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
 
         pokemon_name = request.POST.get('nome_pokemon')
         raridade = request.POST.get('raridade')
         colecao = request.POST.get('colecao')
+        estado = request.POST.get('estado')
         preco = request.POST.get('preco')
+        vend = request.user.username
 
-        c = Carta(pokemon_name, raridade, colecao, myfile, preco)
+        c = Carta(pokemon_name, raridade, colecao, estado, filename, preco, vend)
         c.save()
 
-        return render(request, 'pokecom/venda_form.html', {'uploaded_file_url': uploaded_file_url})
+        return render(request, 'pokecom/venda_form.html')
     return render(request, 'pokecom/venda_form.html')
 
+def troca_form(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+
+        pokemon_name = request.POST.get('nome_pokemon')
+        raridade = request.POST.get('raridade')
+        colecao = request.POST.get('colecao')
+        estado = request.POST.get('estado')
+        preco = request.POST.get('preco')
+        vend = request.user.username
+        trade_card_1 = request.POST.get('pref1')
+        trade_card_2 = request.POST.get('pref2')
+
+        c = Carta_troca(pokemon_name, raridade, colecao, estado, filename, preco, vend, trade_card_1, trade_card_2)
+        c.save()
+
+        return render(request, 'pokecom/troca_form.html')
+    return render(request, 'pokecom/troca_form.html')
 def criar_torneios(request):
     try:
         organizador = Organizador.objects.get(user=request.user)
@@ -87,7 +107,7 @@ def criar_torneios(request):
         return render(request, 'pokecom/criar_torneios.html')
 
     except Organizador.DoesNotExist:
-        return HttpResponse("You need a special permition to create tournaments")
+        return HttpResponse("You need a special permition to create tournaments or you have to authenticate as a company")
 
 def torneios(request):
     torneios = Torneio.objects.all()
@@ -105,14 +125,35 @@ def torneios(request):
 
     return render(request, 'pokecom/torneios.html', {"torneios":torneios})
 
+def procurar(request):
+    cartas_disp = Carta.objects.all()
+
+    if request.method == 'POST':
+        pesquisado = request.POST['procurar']
+        poke_sel = Carta.objects.filter(pokemon__contains=pesquisado)
+        return render(request, 'pokecom/comprar.html', {'pesquisado':pesquisado, 'poke_sel':poke_sel})
+    else:
+        return render(request, 'pokecom/comprar.html', {'cartas_disp':cartas_disp})
+
+def conf_compra(request):
+    if request.method == 'POST':
+        poke_id = request.POST.get('opcao')
+        print(poke_id)
+        print(type(poke_id))
+        if poke_id is not None:
+            poke_sel = Carta.objects.get(id=poke_id)
+            poke_sel.delete()
+            return render(request, 'pokecom/conf_compra.html')
+
+        else:
+            poke_id = request.POST.get('opcao_p')
+            poke_sel = Carta.objects.get(id=poke_id)
+            poke_sel.delete()
+            return render(request, 'pokecom/conf_compra.html')
+
+    return render(request, 'pokecom/comprar.html')
 
 
-
-
-
-
-def pesquisar(request):
-    return render(request, 'pokecom/pesquisar.html')
 
 def vender(request):
     return render(request, 'pokecom/vender.html')
