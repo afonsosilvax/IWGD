@@ -5,6 +5,7 @@ import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from django.db.models import Q
 from .models import Carta, Organizador, Torneio, Carta_troca
 import pokemontcgsdk
 
@@ -80,10 +81,10 @@ def troca_form(request):
         estado = request.POST.get('estado')
         preco = request.POST.get('preco')
         vend = request.user.username
-        trade_card_1 = request.POST.get('pref1')
-        trade_card_2 = request.POST.get('pref2')
+        trade = request.POST.get('pref1')
 
-        c = Carta_troca(pokemon_name, raridade, colecao, estado, filename, preco, vend, trade_card_1, trade_card_2)
+
+        c = Carta_troca(pokemon_name, raridade, colecao, estado, filename, preco, vend, trade)
         c.save()
 
         return render(request, 'pokecom/troca_form.html')
@@ -138,8 +139,6 @@ def procurar(request):
 def conf_compra(request):
     if request.method == 'POST':
         poke_id = request.POST.get('opcao')
-        print(poke_id)
-        print(type(poke_id))
         if poke_id is not None:
             poke_sel = Carta.objects.get(id=poke_id)
             poke_sel.delete()
@@ -153,20 +152,6 @@ def conf_compra(request):
 
     return render(request, 'pokecom/comprar.html')
 
-
-
-def vender(request):
-    return render(request, 'pokecom/vender.html')
-
-def trocar(request):
-    return render(request, 'pokecom/trocar.html')
-
-def dispcarta(request):
-    return render(request, 'pokecom/troca_carta.html')
-
-def pesquisar_troca(request):
-    return render(request, 'pokecom/troca_pesq.html')
-
 def procurar_troca(request):
     cartas_disp = Carta_troca.objects.all()
 
@@ -178,18 +163,29 @@ def procurar_troca(request):
         return render(request, 'pokecom/trocar.html', {'cartas_disp':cartas_disp})
 
 def conf_troca(request):
+    trader = request.user.username
     if request.method == 'POST':
         poke_id = request.POST.get('opcao')
 
         if poke_id is not None:
             poke_sel = Carta_troca.objects.get(id=poke_id)
-            poke_sel.delete()
-            return render(request, 'pokecom/conf_troca.html')
+            poke_ideal_sel = poke_sel.trade
+            troca_ideal = Carta_troca.objects.filter(Q(vendedor=trader) & Q(pokemon=poke_ideal_sel))
+            if troca_ideal.exists() and poke_sel.vendedor != trader:
+                poke_sel.delete()
+                troca_ideal.delete()
+                return render(request, 'pokecom/conf_troca.html')
+            return HttpResponse('A troca não pode ser efetuada automáticamente')
 
         else:
             poke_id = request.POST.get('opcao_p')
             poke_sel = Carta_troca.objects.get(id=poke_id)
-            poke_sel.delete()
-            return render(request, 'pokecom/conf_troca.html')
+            poke_ideal_sel = poke_sel.trade
+            troca_ideal = Carta_troca.objects.filter(Q(vendedor=trader) & Q(pokemon=poke_ideal_sel))
+            if troca_ideal.exists() and poke_sel.vendedor != trader:
+                poke_sel.delete()
+                troca_ideal.delete()
+                return render(request, 'pokecom/conf_troca.html')
+            return HttpResponse('A troca não pode ser efetuada automáticamente')
 
     return render(request, 'pokecom/trocar.html')

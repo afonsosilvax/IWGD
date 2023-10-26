@@ -37,8 +37,7 @@ class Carta_troca(models.Model):
     imagem = models.ImageField(default="")
     preco = models.DecimalField(default="0.0", max_digits=7, decimal_places=2)
     vendedor = models.CharField(max_length=200)
-    trade1 = models.CharField(max_length=200)
-    trade2 = models.CharField(max_length=200)
+    trade = models.CharField(max_length=200)
     id_api = models.CharField(max_length=200)
     id = models.BigAutoField(primary_key=True)
 
