@@ -166,3 +166,30 @@ def dispcarta(request):
 
 def pesquisar_troca(request):
     return render(request, 'pokecom/troca_pesq.html')
+
+def procurar_troca(request):
+    cartas_disp = Carta_troca.objects.all()
+
+    if request.method == 'POST':
+        pesquisado = request.POST['procurar']
+        poke_sel = Carta_troca.objects.filter(pokemon__contains=pesquisado)
+        return render(request, 'pokecom/trocar.html', {'pesquisado':pesquisado, 'poke_sel':poke_sel})
+    else:
+        return render(request, 'pokecom/trocar.html', {'cartas_disp':cartas_disp})
+
+def conf_troca(request):
+    if request.method == 'POST':
+        poke_id = request.POST.get('opcao')
+
+        if poke_id is not None:
+            poke_sel = Carta_troca.objects.get(id=poke_id)
+            poke_sel.delete()
+            return render(request, 'pokecom/conf_troca.html')
+
+        else:
+            poke_id = request.POST.get('opcao_p')
+            poke_sel = Carta_troca.objects.get(id=poke_id)
+            poke_sel.delete()
+            return render(request, 'pokecom/conf_troca.html')
+
+    return render(request, 'pokecom/trocar.html')

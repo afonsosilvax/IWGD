@@ -16,8 +16,6 @@ urlpatterns = [
     path('torneios', views.torneios, name='torneios'),
     path('procurar', views.procurar, name='procurar'),
     path('conf_compra', views.conf_compra, name='conf_compra'),
-
-
-    path('dispcarta', views.dispcarta, name='dispcarta'),
-    path('pesuisar_troca', views.pesquisar_troca, name='pesquisar_troca'),
+    path('procurar_troca', views.procurar_troca, name='procurar_troca'),
+    path('conf_troca', views.conf_troca, name='conf_troca'),
     ]
