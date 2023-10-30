@@ -1,14 +1,13 @@
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import Http404, HttpResponse,HttpResponseRedirect
-import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
-from .models import Carta, Organizador, Torneio, Carta_troca
-import pokemontcgsdk
-
+from .models import Carta, Organizador, Torneio, Carta_troca, Classificacao
+from django.utils import timezone
+from .pokemon_tcg_api import *
 
 # Create your views here.
 
@@ -59,14 +58,32 @@ def fazer_upload(request):
         pokemon_name = request.POST.get('nome_pokemon')
         raridade = request.POST.get('raridade')
         colecao = request.POST.get('colecao')
+        sub1 = request.POST.get('subtipo1')
+        sub = sub1
+        if request.POST.get('subtipo2') != '':
+            sub2 = request.POST.get('subtipo2')
+            sub += ' ' + sub2
         estado = request.POST.get('estado')
         preco = request.POST.get('preco')
         vend = request.user.username
 
-        c = Carta(pokemon_name, raridade, colecao, estado, filename, preco, vend)
+        carta_poke = Carta.objects.filter(Q(pokemon=pokemon_name) & Q(raridade=raridade) & Q(colecao=colecao) & Q(subtipo=sub))
+        if not carta_poke.exists():
+            poke = proc_poke(pokemon_name, raridade, colecao, sub)
+            if poke == []:
+                return HttpResponse('A carta que inseriu não existe')
+
+            id = poke[0].id
+            c = Carta(pokemon_name, raridade, colecao, sub, estado, filename, preco, vend, id)
+            c.save()
+
+            return render(request, 'pokecom/troca_form.html')
+
+        id = carta_poke[0].id_api
+        c = Carta(pokemon_name, raridade, colecao, sub, estado, filename, preco, vend, id)
         c.save()
 
-        return render(request, 'pokecom/venda_form.html')
+        return render(request, 'pokecom/troca_form.html')
     return render(request, 'pokecom/venda_form.html')
 
 def troca_form(request):
@@ -78,13 +95,30 @@ def troca_form(request):
         pokemon_name = request.POST.get('nome_pokemon')
         raridade = request.POST.get('raridade')
         colecao = request.POST.get('colecao')
+        sub1 = request.POST.get('subtipo1')
+        sub = sub1
+        if request.POST.get('subtipo2') != '':
+            sub2 = request.POST.get('subtipo2')
+            sub += ' ' + sub2
         estado = request.POST.get('estado')
         preco = request.POST.get('preco')
         vend = request.user.username
         trade = request.POST.get('pref1')
 
+        carta_poke = Carta_troca.objects.filter(Q(pokemon = pokemon_name) & Q(raridade=raridade) & Q(colecao=colecao) & Q(subtipo=sub))
+        if not carta_poke.exists():
+            poke = proc_poke(pokemon_name, raridade, colecao, sub)
+            if poke == []:
+                return HttpResponse('A carta que inseriu não existe')
 
-        c = Carta_troca(pokemon_name, raridade, colecao, estado, filename, preco, vend, trade)
+            id = poke[0].id
+            c = Carta_troca(pokemon_name, raridade, colecao, sub, estado, filename, preco, vend, trade, id)
+            c.save()
+
+            return render(request, 'pokecom/troca_form.html')
+
+        id = carta_poke[0].id_api
+        c = Carta_troca(pokemon_name, raridade, colecao, sub, estado, filename, preco, vend, trade, id)
         c.save()
 
         return render(request, 'pokecom/troca_form.html')
@@ -111,7 +145,7 @@ def criar_torneios(request):
         return HttpResponse("You need a special permition to create tournaments or you have to authenticate as a company")
 
 def torneios(request):
-    torneios = Torneio.objects.all()
+    torneios = Torneio.objects.filter(data__gt=timezone.now())
     p = request.user.username
 
     if request.method == 'POST':
@@ -171,21 +205,51 @@ def conf_troca(request):
             poke_sel = Carta_troca.objects.get(id=poke_id)
             poke_ideal_sel = poke_sel.trade
             troca_ideal = Carta_troca.objects.filter(Q(vendedor=trader) & Q(pokemon=poke_ideal_sel))
+            vendedor = poke_sel.vendedor
+            emai_vendedor = User.objects.get(username=vendedor).email
             if troca_ideal.exists() and poke_sel.vendedor != trader:
                 poke_sel.delete()
                 troca_ideal.delete()
                 return render(request, 'pokecom/conf_troca.html')
-            return HttpResponse('A troca não pode ser efetuada automáticamente')
+            return HttpResponse(f'A troca não pode ser efetuada automáticamente \n Para proceder contacte {vendedor} através do seu email {emai_vendedor}')
 
         else:
             poke_id = request.POST.get('opcao_p')
             poke_sel = Carta_troca.objects.get(id=poke_id)
             poke_ideal_sel = poke_sel.trade
             troca_ideal = Carta_troca.objects.filter(Q(vendedor=trader) & Q(pokemon=poke_ideal_sel))
+            vendedor = poke_sel.vendedor
+            emai_vendedor = User.objects.get(username=vendedor).email
             if troca_ideal.exists() and poke_sel.vendedor != trader:
                 poke_sel.delete()
                 troca_ideal.delete()
                 return render(request, 'pokecom/conf_troca.html')
-            return HttpResponse('A troca não pode ser efetuada automáticamente')
+            return HttpResponse(f'A troca não pode ser efetuada automáticamente. Para proceder contacte {vendedor} através do seu email {emai_vendedor}')
 
     return render(request, 'pokecom/trocar.html')
+
+def seller_rating(request):
+    user = request.user.username
+    if request.method == 'POST':
+        rating = request.POST.get('rating')
+        vendedor = request.POST.get('seller')
+        comentario = request.POST.get('comment')
+
+        c = Classificacao(user_name=user, rating=rating, vendedor_name=vendedor, comentario=comentario)
+        c.save()
+        return render(request, 'pokecom/home.html')
+    return render(request, 'pokecom/seller_rating.html')
+
+def proc_rating(request):
+    if request.method == 'POST':
+        vend = request.POST.get('seller')
+        classif = Classificacao.objects.filter(vendedor_name=vend)
+        if classif.exists():
+            rating_sum = 0
+            for r in classif:
+                rating_sum += r.rating
+
+            return render(request, 'pokecom/proc_rating.html', {"rating":rating_sum/len(classif), "comment":classif})
+        return HttpResponse('This seller doesn`t have any rating')
+
+    return render(request, 'pokecom/proc_rating.html')

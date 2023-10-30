@@ -18,4 +18,6 @@ urlpatterns = [
     path('conf_compra', views.conf_compra, name='conf_compra'),
     path('procurar_troca', views.procurar_troca, name='procurar_troca'),
     path('conf_troca', views.conf_troca, name='conf_troca'),
+    path('seller_rating', views.seller_rating, name='seller_rating'),
+    path('proc_rating', views.proc_rating, name='proc_rating'),
     ]

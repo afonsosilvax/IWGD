@@ -1,11 +1,17 @@
 from pokemontcgsdk import Card, Set, Type, Supertype, Subtype, Rarity
 
 if __name__ == "__main__":
-    card = Card.find('xy1-1')
-    cards = Card.where(q='set.name:ghjghj subtypes:mega')
-    cards1 = Card.where(q='name:pikachu')
-    rarity = Rarity.all()
     print("This is the main page")
 
-def poke_validacao(poke, rar, col):
-    pass
+def proc_poke(poke, rar, col, sub):
+    search = "name:" + poke
+    for r in rar.split(' '):
+        search += " rarity:" + r
+
+    for c in col.split(' '):
+        search += " set.name:" + c
+
+    for s in sub.split(' '):
+        search += " subtypes:" + s
+
+    return Card.where(q=search)

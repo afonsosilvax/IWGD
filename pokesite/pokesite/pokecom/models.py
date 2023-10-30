@@ -7,6 +7,7 @@ class Carta(models.Model):
     pokemon = models.CharField(max_length=200)
     raridade = models.CharField(max_length=200)
     colecao = models.CharField(max_length=200)
+    subtipo = models.CharField(max_length=200)
     estado = models.CharField(max_length=200)
     imagem = models.ImageField(default="")
     preco = models.DecimalField(default="0.0", max_digits=7, decimal_places=2)
@@ -33,6 +34,7 @@ class Carta_troca(models.Model):
     pokemon = models.CharField(max_length=200)
     raridade = models.CharField(max_length=200)
     colecao = models.CharField(max_length=200)
+    subtipo = models.CharField(max_length=200)
     estado = models.CharField(max_length=200)
     imagem = models.ImageField(default="")
     preco = models.DecimalField(default="0.0", max_digits=7, decimal_places=2)
@@ -41,4 +43,8 @@ class Carta_troca(models.Model):
     id_api = models.CharField(max_length=200)
     id = models.BigAutoField(primary_key=True)
 
-
+class Classificacao(models.Model):
+    user_name = models.CharField(max_length=200)
+    rating = models.DecimalField(default="2.5", max_digits=3, decimal_places=2)
+    vendedor_name = models.CharField(max_length=200)
+    comentario = models.CharField(default="", max_length=800)

@@ -10,12 +10,14 @@
     {% bootstrap_javascript %}
 
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'pokecom/style.css' %}" />
-
     <!--https://www.iconarchive.com/show/cold-fusion-hd-icons-by-chrisbanks2/pokemon-icon.html-->
     <link rel="icon" type="image/x-icon"
           href="{% static 'pokecom/images/Chrisbanks2-Cold-Fusion-Hd-Pokemon.ico' %}"
           alt = "icone" />
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'pokecom/style.css' %}"/>
+
 </head>
 
 <body>
@@ -32,15 +34,18 @@
         <p></p>
     {% endblock %}
 
-    <img src="{% static 'pokecom/images/International_Pokémon_logo.svg.png' %}" width="30%",
-         height="15%" vspace="20" hspace="80" alt="Pokemon logo">
+    <div>
+        <img src="{% static 'pokecom/images/International_Pokémon_logo.svg.png' %}" width="450px"
+         height="150px" vspace="10px" hspace="50px" alt="Pokemon logo">
 
-    <h1>Card trading site
-        <p id="centrar">Pokecom</p>
-    </h1>
+        <h1>Card trading site
+            <p id="centrar">Pokecom</p>
+        </h1>
 
-    <img id="opacidade" src="https://cdn3.emoji.gg/emojis/8128-pokeball.png" width="85px" height="85px"
-         alt="pokeball" hspace="240" vspace="20">
+        <img id="opacidade" src="https://cdn3.emoji.gg/emojis/8128-pokeball.png" width="70px" height="70px"
+             alt="pokeball" hspace="240" vspace="20">
+    </div>
+
 
 </body>
 </html>

@@ -9,57 +9,11 @@
     {% bootstrap_javascript %}
     {% load static %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'pokecom/style4.css' %}"/>
 </head>
 <body>
-
-    <!--<form method="post" enctype="multipart/form-data">
-        <h1>Filtering</h1>
-        <div>
-            <label for="filter">Filter:</label>
-            <select id="filter">
-                <option value="all">All</option>
-                <optgroup label="Pokémon">
-                    <option value="pokemon">Pokémon 1</option>
-                    <option value="pokemon">Pokémon 2</option>
-                </optgroup>
-                <optgroup label="Rarity"></optgroup>
-                <optgroup label="Collection"></optgroup>
-                <optgroup label="Price">
-                    <li>
-                        <div>
-                            <label for="priceRange">Price Range:</label>
-                            <input type="text" id="priceRange" readonly>
-                        </div>
-                        <div id="priceSlider">
-                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-                                <script>
-                                    $(function() {
-                                        $("#priceSlider").slider({
-                                            range: true,
-                                            min: 0,
-                                            max: 100,
-                                            values: [0, 100],
-                                            slide: function(event, ui) {
-                                                $("#priceRange").val(ui.values[0] + " - " + ui.values[1]);
-                                            }
-                                        });
-                                        $("#priceRange").val($("#priceSlider").slider("values", 0) +
-                                            " - " + $("#priceSlider").slider("values", 1));
-                                    });
-                                </script>
-                        </div>
-                    </li>
-                </optgroup>
-            </select>
-        </div>
-        <ul id="items">
-            {% for item in items %}
-                <li class="{{ item.category }}">{{ item.name }} ({{ item.category }})</li>
-            {% endfor %}
-        </ul>
-    </form> -->
-
     <form class="d-flex" role="search" method="POST">
     {% csrf_token %}
          <input class="form-control me-2" type="search" placeholder="Search" name="procurar"
@@ -70,38 +24,47 @@
     <form method="post">
         {% csrf_token %}
         {% if pesquisado %}
-            {% for poke in poke_sel %}
-                <input type="radio" name="opcao_p" value="{{poke.id}}" id="poke {{forloop.counter}}">
-                <label for="poke {{forloop.counter}}">
-                <img src="{{poke.imagem.url}}">
-                {{poke.pokemon}}
-                {{poke.raridade}}
-                {{poke.colecao}}
-                {{poke.estado}}
-                {{poke.preco}}
-                {{poke.vendedor}}
-                </label>
-            {% endfor %}
+            <ul>
+                {% for poke in poke_sel %}
+                    <section>
+                        <input type="radio" name="opcao_p" value="{{poke.id}}" id="poke {{forloop.counter}}">
+                        <label for="poke {{forloop.counter}}">
+                        <img width="150px" height="auto" hspace="40px" vspace="20px" src="{{poke.imagem.url}}">
+                        {{poke.pokemon}}
+                        {{poke.raridade}}
+                        {{poke.colecao}}
+                        {{poke.estado}}
+                        {{poke.preco}}
+                        {{poke.vendedor}}
+                        </label>
+                    </section>
+                {% endfor %}
+            </ul>
 
         {% else %}
             <ul>
                 {% for carta in cartas_disp %}
-                    <input type="radio" name="opcao" value="{{carta.id}}" id="carta {{forloop.counter}}">
-                    <label for="carta {{forloop.counter}}">
-                        <img src="{{carta.imagem.url}}">
-                        {{carta.pokemon}}
-                        {{carta.raridade}}
-                        {{carta.colecao}}
-                        {{carta.estado}}
-                        {{carta.preco}}
-                        {{carta.vendedor}}
-                    </label>
-
+                    <section>
+                        <input type="radio" name="opcao" value="{{carta.id}}" id="carta {{forloop.counter}}">
+                        <label for="carta {{forloop.counter}}">
+                                <img width="150px" height="auto" hspace="40px" vspace="20px" src="{{carta.imagem.url}}">
+                                {{carta.pokemon}}
+                                {{carta.raridade}}
+                                {{carta.colecao}}
+                                {{carta.estado}}
+                                {{carta.preco}}
+                                {{carta.vendedor}}
+                        </label>
+                    </section>
                 {% endfor %}
             </ul>
         {% endif %}
 
-        <input type="submit" value="compra" formaction="{% url 'pokecom:conf_compra' %}">
+        <input type="submit" value="Buy" formaction="{% url 'pokecom:conf_compra' %}">
     </form>
+
+    <div class="py-5 text-center">
+        <a href="{% url 'pokecom:home' %}">Home page</a>
+    </div>
 </body>
 </html>
