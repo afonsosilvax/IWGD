@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>Pokecom Sell form</title>
+    {% endblock %}
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'pokecom/style1.css' %}" />
+
+    <link rel="icon" type="image/x-icon"
+      href="{% static 'pokecom/images/Chrisbanks2-Cold-Fusion-Hd-Pokemon.ico' %}"
+      alt = "icone" />
+</head>
+<body>
+    <div class="container mt-3">
+        <div class="py-5 text-center">
+            {% block nome %}
+            <h1>Sell form</h1>
+            {% endblock %}
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-6">
+                <div class="col-sm-6">
+                    <label for="nome" class="form-label">Pokémon</label>
+                    <input id="nome" type="text" class="form-control" placeholder="what is your pokémon?"
+                           name="nome_pokemon" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="raridade_pokemon" class="form-label">Rarity</label>
+                        <select id="raridade_pokemon" class="form-control" placeholder="pokémon rarity"
+                               name="raridade" required>
+                            <option value="Amazing Rare">Amazing Rare</option>
+                            <option value="Classic Collection">Classic Collection</option>
+                            <option value="Common">Common</option>
+                            <option value="Double Rare">Double Rare</option>
+                            <option value="Hyper Rare">Hyper Rare</option>
+                            <option value="Illustration Rare">Illustration Rare</option>
+                            <option value="LEGEND">LEGEND</option>
+                            <option value="Promo">Promo</option>
+                            <option value="Radiant Rare">Radiant Rare</option>
+                            <option value="Rare">Rare</option>
+                            <option value="Rare ACE">Rare ACE</option>
+                            <option value="Rare BREAK">Rare BREAK</option>
+                            <option value="Rare Holo">Rare Holo</option>
+                            <option value="Rare Holo EX">Rare Holo EX</option>
+                            <option value="Rare Holo GX">Rare Holo GX</option>
+                            <option value="Rare Holo LV.X">Rare Holo LV.X</option>
+                            <option value="Rare Holo Star">Rare Holo Star</option>
+                            <option value="Rare Holo V">Rare Holo V</option>
+                            <option value="Rare Holo VMAX">Rare Holo VMAX</option>
+                            <option value="Rare Holo VSTAR">Rare Holo VSTAR</option>
+                            <option value="Rare Prime">Rare Prime</option>
+                            <option value="Rare Prism Star">Rare Prism Star</option>
+                            <option value="Rare Rainbow">Rare Rainbow</option>
+                            <option value="Rare Secret">Rare Secret</option>
+                            <option value="Rare Shining">Rare Shining</option>
+                            <option value="Rare Shiny">Rare Shiny</option>
+                            <option value="Rare Shiny GX">Rare Shiny GX</option>
+                            <option value="Rare Ultra">Rare Ultra</option>
+                            <option value="Special Illustration Rare">Special Illustration Rare</option>
+                            <option value="Trainer Gallery Rare Holo">Trainer Gallery Rare Holo</option>
+                            <option value="Ultra Rare">Ultra Rare</option>
+                            <option value="Uncommon">Uncommon</option>
+                        </select>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="colecao_pokemon" class="form-label">Collection</label>
+                    <input id="colecao_pokemon" type="text" class="form-control" placeholder="what is the collection of your pokémon? NO NUMBERS"
+                           name="colecao" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="subtipo1_pokemon" class="form-label">Subtype</label>
+                        <!-- Notar que não estão filtrados totalmente os subtipos apenas relacionados com cartas de supertipo pokemon -->
+                        <select id="subtipo1_pokemon" class="form-control" placeholder="Basic, EX, Mega, Rapid Strike, etc."
+                               name="subtipo1" required>
+                            <option value="ACE SPEC">ACE SPEC</option>
+                            <option value="BREAK">BREAK</option>
+                            <option value="Baby">Baby</option>
+                            <option value="Basic">Basic</option>
+                            <option value="EX">EX</option>
+                            <option value="Eternamax">Eternamax</option>
+                            <option value="Fusion Strike">Fusion Strike</option>
+                            <option value="GX">GX</option>
+                            <option value="Goldenrod Game Corner">Goldenrod Game Corner</option>
+                            <option value="LEGEND">LEGEND</option>
+                            <option value="Level-Up">Level-Up</option>
+                            <option value="MEGA">MEGA</option>
+                            <option value="Prime">Prime</option>
+                            <option value="Prism Star">Prism Star</option>
+                            <option value="Radiant">Radiant</option>
+                            <option value="Rapid Strike">Rapid Strike</option>
+                            <option value="Restored">Restored</option>
+                            <option value="Rocket's Secret Machine">Rocket's Secret Machine</option>
+                            <option value="SP">SP</option>
+                            <option value="Single Strike">Single Strike</option>
+                            <option value="Special">Special</option>
+                            <option value="Stage">Stage</option>
+                            <option value="Star">Star</option>
+                            <option value="Technical Machine">Technical Machine</option>
+                            <option value="Tera">Tera</option>
+                            <option value="Ultra Beast">Ultra Beast</option>
+                            <option value="V">V</option>
+                            <option value="V-UNION">V-UNION</option>
+                            <option value="VMAX">VMAX</option>
+                            <option value="VSTAR">VSTAR</option>
+                            <option value="ex">ex</option>
+                        </select>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="subtipo2_pokemon" class="form-label">Second subtype</label>
+                        <select id="subtipo2_pokemon" class="form-control" placeholder="Only if it has one"
+                               name="subtipo2">
+                            <option value="" selected> </option>
+                            <option value="ACE SPEC">ACE SPEC</option>
+                            <option value="BREAK">BREAK</option>
+                            <option value="Baby">Baby</option>
+                            <option value="Basic">Basic</option>
+                            <option value="EX">EX</option>
+                            <option value="Eternamax">Eternamax</option>
+                            <option value="Fusion Strike">Fusion Strike</option>
+                            <option value="GX">GX</option>
+                            <option value="Goldenrod Game Corner">Goldenrod Game Corner</option>
+                            <option value="LEGEND">LEGEND</option>
+                            <option value="Level-Up">Level-Up</option>
+                            <option value="MEGA">MEGA</option>
+                            <option value="Prime">Prime</option>
+                            <option value="Prism Star">Prism Star</option>
+                            <option value="Radiant">Radiant</option>
+                            <option value="Rapid Strike">Rapid Strike</option>
+                            <option value="Restored">Restored</option>
+                            <option value="Rocket's Secret Machine">Rocket's Secret Machine</option>
+                            <option value="SP">SP</option>
+                            <option value="Single Strike">Single Strike</option>
+                            <option value="Special">Special</option>
+                            <option value="Stage">Stage</option>
+                            <option value="Star">Star</option>
+                            <option value="Technical Machine">Technical Machine</option>
+                            <option value="Tera">Tera</option>
+                            <option value="Ultra Beast">Ultra Beast</option>
+                            <option value="V">V</option>
+                            <option value="V-UNION">V-UNION</option>
+                            <option value="VMAX">VMAX</option>
+                            <option value="VSTAR">VSTAR</option>
+                            <option value="ex">ex</option>
+                        </select>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="estado_pokemon" class="form-label">Condition</label>
+                        <select id="estado_pokemon" class="form-control" placeholder="what is the condition of the card?"
+                                name="estado" required>
+                            <option value="S+">S+</option>
+                            <option value="S">S</option>
+                            <option value="A+">A+</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C+">C+</option>
+                            <option value="C">C</option>
+                            <option value="D+">D+</option>
+                            <option value="D">D</option>
+                        </select>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="preco_pokemon" class="form-label">Price</label>
+                    <input id="preco_pokemon" type="number" class="form-control" placeholder="price of the card"
+                           name="preco" required>
+                    <div class="invalid-feedback">Invalid field</div>
+                </div>
+
+                {% block form %}
+                <div class="py-4">
+                    <div class="col-sm-12">
+                        <label for="imagem" class="form-label">Photo of the card</label>
+                        <input id="imagem" type="file" class="form-control" name="myfile" placeholder="Submit your image" required>
+                        {% if uploaded_file_url %}
+                            <p>Upload was successfull</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+            <button type="submit" class="btn btn-primary" name=Submeter">Submit</button>
+        </form>
+
+        <div class="py-5 text-center">
+            <a href="{% url 'pokecom:home' %}"> Home page</a>
+        </div>
+    </div>
+</body>
+</html>

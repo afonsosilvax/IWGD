@@ -1,0 +1,34 @@
+{% extends "pokecom/venda_form.html" %}
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% load static %}
+
+{% block title %}
+    <title>Pokecom Trade form</title>
+{% endblock %}
+
+{% block nome %}
+    <h1>Trade form</h1>
+{% endblock %}
+
+{% block form %}
+    <div class="col-sm-6">
+        <label for="pokemon_preferencial" class="form-label">The ideal pokemon for trade</label>
+        <input id="pokemon_preferencial" type="text" class="form-control" placeholder="will automaticly do the trade if requirements are satisfied"
+               name="pref1">
+        <div class="invalid-feedback">Invalid field</div>
+    </div>
+
+    <div class="py-4">
+        <div class="col-sm-12">
+            <label for="imagem" class="form-label">Photo of the card</label>
+            <input id="imagem" type="file" class="form-control" name="myfile" placeholder="Submit your image" required>
+            {% if uploaded_file_url %}
+                <p>Upload was successfull</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

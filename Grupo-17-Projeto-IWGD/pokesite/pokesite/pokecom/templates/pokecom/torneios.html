@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokecom torneios</title>
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% load static %}
+
+    <link rel="icon" type="image/x-icon"
+      href="{% static 'pokecom/images/Chrisbanks2-Cold-Fusion-Hd-Pokemon.ico' %}"
+      alt = "icone" />
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'pokecom/style3.css' %}"/>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <ul>
+            {% for torneio in torneios %}
+                <p></p>
+                <input type="radio" name="torneio" id="torneio {{forloop.counter}}" value="{{torneio.id}}">
+                <label for="torneio {{forloop.counter}}">
+                    {{torneio.nome_torneio}}
+                    {{torneio.pais}}
+                    {{torneio.loja}}
+                    {{torneio.nome_organizador}}
+                    {{torneio.data}}
+                    {{torneio.premio}}
+                    {{torneio.num_part}}
+                </label>
+                </br>
+            {% endfor %}
+        </ul>
+
+        <input type="submit" value="register">
+    </form>
+
+    <div class="py-5 text-center">
+        <a href="{% url 'pokecom:home' %}"> Home page</a>
+    </div>
+</body>
+</html>
